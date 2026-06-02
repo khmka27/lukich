@@ -8,6 +8,7 @@
   --decor-shadow: 0 10px 22px rgba(206, 132, 170, 0.26);
   --scroll-btn-bottom: clamp(0.2rem, 0.8vh, 0.5rem);
   --scroll-btn-size: 2.6rem;
+  --scene-text-gap: clamp(0.75rem, 2.4vh, 1.35rem);
 }
 
 * {
@@ -151,7 +152,18 @@ html {
   min-width: 0;
   position: relative;
   display: grid;
-  place-items: center;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: var(--scene-text-gap);
+  align-items: center;
+  justify-items: stretch;
+  padding-bottom: calc(var(--scroll-btn-bottom) + var(--scroll-btn-size) + 0.45rem);
+}
+
+.section-block__scene > .section-block__content {
+  grid-row: 2;
+  align-self: center;
+  justify-self: center;
+  min-height: 0;
 }
 
 .section-block__content {
@@ -304,10 +316,9 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.85rem;
+  justify-content: flex-start;
+  gap: var(--scene-text-gap);
   min-height: min(84svh, 760px);
-  padding-bottom: 0.5rem;
 }
 
 .invite-restaurant {
@@ -467,7 +478,8 @@ html {
 
 .section-block__text {
   margin: 0;
-  position: absolute;
+  position: relative;
+  z-index: 2;
   color: var(--decor-color);
   font-family: var(--decor-font);
   font-size: clamp(1.85rem, 5vw, 4.2rem);
@@ -476,34 +488,61 @@ html {
   max-width: min(46vw, 440px);
 }
 
+.section-block__scene > .section-block__text--top-left,
+.section-block__scene > .section-block__text--top-right {
+  grid-row: 1;
+}
+
+.section-block__scene > .section-block__text--bottom-left,
+.section-block__scene > .section-block__text--bottom-right {
+  grid-row: 3;
+}
+
 .section-block__text strong {
   font-family: 'Montserrat', var(--decor-font);
   font-weight: 800;
 }
 
 .section-block__text--top-left {
-  top: clamp(0.4rem, 2vh, 1rem);
-  left: clamp(0.8rem, 3vw, 2rem);
+  justify-self: start;
+  align-self: start;
+  padding-inline: clamp(0.2rem, 1vw, 0.5rem) 0;
   text-align: left;
   max-width: min(44vw, 520px);
 }
 
 .section-block__text--top-right {
-  top: clamp(0.4rem, 2vh, 1rem);
-  right: clamp(0.8rem, 3vw, 2rem);
+  justify-self: end;
+  align-self: start;
+  padding-inline: 0 clamp(0.2rem, 1vw, 0.5rem);
   text-align: right;
 }
 
 .section-block__text--bottom-right {
-  right: clamp(0.8rem, 3vw, 2rem);
-  bottom: clamp(1.8rem, 5.5vh, 3.4rem);
+  justify-self: end;
+  align-self: end;
+  padding-inline: 0 clamp(0.2rem, 1vw, 0.5rem);
   text-align: right;
 }
 
 .section-block__text--bottom-left {
-  left: clamp(0.8rem, 3vw, 2rem);
-  bottom: clamp(1.8rem, 5.5vh, 3.4rem);
+  justify-self: start;
+  align-self: end;
+  padding-inline: clamp(0.2rem, 1vw, 0.5rem) 0;
   text-align: left;
+}
+
+.section-block__scene--invite .section-block__text--top-left {
+  align-self: stretch;
+  width: 100%;
+  max-width: min(46vw, 440px);
+}
+
+.section-block__scene--invite .section-block__text--bottom-right {
+  align-self: flex-end;
+  width: auto;
+  max-width: min(52vw, 480px);
+  padding-right: clamp(0.6rem, 2.5vw, 1.5rem);
 }
 
 .js-typewriter {
@@ -778,10 +817,6 @@ body.model-off #sectionOne .section-block__content--model {
     bottom: 10%;
   }
 
-  #sectionFour .section-block__text--bottom-right {
-    bottom: clamp(3.2rem, 9vh, 4.2rem);
-  }
-
   #sectionThree .story-slider__caption {
     bottom: calc(
       max(0.1rem, env(safe-area-inset-bottom, 0px)) + var(--scroll-btn-size) + 0.75rem
@@ -828,7 +863,4 @@ body.model-off #sectionOne .section-block__content--model {
     height: min(220px, 42vw);
   }
 
-  #sectionFive .section-block__text--bottom-right {
-    bottom: clamp(1.2rem, 4vh, 2rem);
-  }
 }

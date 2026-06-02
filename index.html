@@ -6,7 +6,7 @@
     <title>For Polina</title>
     <meta
       name="description"
-      content="Приветственная страница с 3D-моделью голубя."
+      content="Приглашаю вас на ужин в честь вашего 23-летия"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -359,7 +359,30 @@
               if (!target) return;
 
               button.addEventListener('click', () => {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const divider = target.previousElementSibling;
+                const isMobile = window.matchMedia('(max-width: 920px)').matches;
+                const gap = isMobile ? 10 : 6;
+
+                let scrollTop;
+                if (divider?.classList.contains('section-divider')) {
+                  scrollTop =
+                    divider.getBoundingClientRect().bottom +
+                    window.scrollY +
+                    gap;
+                } else {
+                  scrollTop =
+                    target.getBoundingClientRect().top + window.scrollY + gap;
+                }
+
+                // Первая секция на мобиле: dvh/svh и панель браузера чуть недокручивают
+                if (button.id === 'scrollDownBtn' && isMobile) {
+                  scrollTop += Math.round(window.innerHeight * 0.03);
+                }
+
+                window.scrollTo({
+                  top: Math.max(0, scrollTop),
+                  behavior: 'smooth',
+                });
               });
             });
         }
