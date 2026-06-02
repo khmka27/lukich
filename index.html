@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For Polina</title>
+    <meta
+      name="description"
+      content="Приветственная страница с 3D-моделью голубя."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Montserrat:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="model-off">
+    <div class="loading-screen" id="loadingScreen" aria-live="polite">
+      <p class="loading-screen__text" id="loadingText"></p>
+    </div>
+    <div class="background-glow background-glow--a"></div>
+    <div class="background-glow background-glow--b"></div>
+
+    <main class="page">
+      <section class="section-block" id="sectionOne">
+        <div class="section-block__scene">
+          <p
+            class="section-block__text section-block__text--top-left js-typewriter"
+            data-type-speed="40"
+          >
+            26 апреля в Италии — среди запаха свежего эспрессо, разговоров на
+            пол-улицы, маленьких балконов с цветами, пасты “как у Нонны” и той
+            самой dolce vita, где даже обычный день выглядит празднично, —
+            родилась девочка…
+          </p>
+
+          <div class="section-block__content section-block__content--model">
+            <model-viewer
+              id="heroModel"
+              src="./pigeon/source/Pigeon.glb"
+              alt="3D-модель голубя"
+              camera-controls
+              auto-rotate
+              autoplay
+              ar
+              shadow-intensity="0"
+              shadow-softness="0"
+              exposure="1"
+              loading="eager"
+              interaction-prompt="none"
+              reveal="auto"
+            >
+            </model-viewer>
+          </div>
+
+          <p
+            class="section-block__text section-block__text--bottom-right js-typewriter"
+            data-type-speed="50"
+          >
+            И назвали её Полина.
+          </p>
+
+          <button
+            type="button"
+            class="scroll-down-btn"
+            id="scrollDownBtn"
+            data-scroll-target="#sectionTwo"
+            aria-label="Прокрутить вниз"
+          >
+            ↓
+          </button>
+        </div>
+      </section>
+
+      <hr class="section-divider" aria-hidden="true" />
+
+      <section class="section-block" id="sectionTwo">
+        <div class="section-block__scene">
+          <p class="section-block__text section-block__text--top-left">
+            Сначала все подумали:
+          </p>
+
+          <div class="section-block__content section-block__content--photos">
+            <figure class="postcard-photo postcard-photo--a">
+              <img src="./assets/1.jpeg" alt="Детское фото Полины" />
+            </figure>
+            <figure class="postcard-photo postcard-photo--b">
+              <img src="./assets/9.jpeg" alt="Полина в красном костюме" />
+            </figure>
+          </div>
+
+          <p class="section-block__text section-block__text--bottom-right">
+            «Какая милая девочка!»
+          </p>
+
+          <button
+            type="button"
+            class="scroll-down-btn scroll-down-btn--always-visible"
+            data-scroll-target="#sectionThree"
+            aria-label="Прокрутить вниз"
+          >
+            ↓
+          </button>
+        </div>
+      </section>
+
+      <hr class="section-divider" aria-hidden="true" />
+
+      <section class="section-block" id="sectionThree">
+        <div class="section-block__scene">
+          <p class="section-block__text section-block__text--top-left">
+            Но никто тогда ещё не знал, что вместе с ней в этот мир пришли:
+          </p>
+
+          <div class="section-block__content section-block__content--slider">
+            <div class="story-carousel">
+              <figure
+                class="postcard-photo postcard-photo--story"
+                id="storyFrame"
+              >
+                <img id="storyImage" src="./assets/2.jpeg" alt="Фото 2" />
+              </figure>
+              <div
+                class="story-slider"
+                id="storySlider"
+                aria-label="Слайдшоу детских фото"
+              >
+                <button
+                  type="button"
+                  class="story-slider__nav story-slider__nav--prev"
+                  id="storyPrevBtn"
+                  aria-label="Предыдущее фото"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  class="story-slider__nav story-slider__nav--next"
+                  id="storyNextBtn"
+                  aria-label="Следующее фото"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+          </div>
+          <p class="story-slider__caption" id="storyCaption">
+            лёгкая драма в лучших традициях жанра
+          </p>
+
+          <button
+            type="button"
+            class="scroll-down-btn scroll-down-btn--always-visible"
+            data-scroll-target="#sectionFour"
+            aria-label="Прокрутить вниз"
+          >
+            ↓
+          </button>
+        </div>
+      </section>
+
+      <hr class="section-divider" aria-hidden="true" />
+
+      <section class="section-block" id="sectionFour">
+        <div class="section-block__scene">
+          <p class="section-block__text section-block__text--top-left">
+            И вот уже прошёл месяц как ей исполнилось 23 года. Но разве Полину
+            можно поздравить один раз и закрыть тему? Можно, но ее
+          </p>
+
+          <div class="section-block__content section-block__content--pigeon">
+            <model-viewer
+              id="pigeonModel"
+              src="./pigeon/source/Pigeon.glb"
+              alt="3D-модель голубя"
+              camera-controls
+              auto-rotate
+              autoplay
+              shadow-intensity="0"
+              shadow-softness="0"
+              exposure="1.1"
+              interaction-prompt="none"
+              reveal="auto"
+              loading="eager"
+            >
+            </model-viewer>
+            <p class="pigeon-speech" aria-label="Голубь говорит">
+              <strong>«ЭЭ, попутал??»</strong>
+            </p>
+          </div>
+
+          <p class="section-block__text section-block__text--bottom-right">
+            не позволяет. Поэтому...
+          </p>
+
+          <button
+            type="button"
+            class="scroll-down-btn scroll-down-btn--always-visible"
+            data-scroll-target="#sectionFive"
+            aria-label="Прокрутить вниз"
+          >
+            ↓
+          </button>
+        </div>
+      </section>
+
+      <hr class="section-divider" aria-hidden="true" />
+
+      <section class="section-block section-block--invite" id="sectionFive">
+        <div class="section-block__scene section-block__scene--invite">
+          <p class="section-block__text section-block__text--top-left">
+            Полина Андреевна!
+          </p>
+
+          <article class="invite-card" aria-label="Приглашение">
+            <p class="invite-card__eyebrow">Ждем вас</p>
+
+            <dl class="invite-card__details">
+              <div class="invite-card__row">
+                <dt>Когда</dt>
+                <dd>5&nbsp;июня · 20:00</dd>
+              </div>
+              <div class="invite-card__row">
+                <dt>Где</dt>
+                <dd>Ristorante «La&nbsp;Dolce&nbsp;Vita»</dd>
+              </div>
+              <div class="invite-card__row">
+                <dt>Адрес</dt>
+                <dd>
+                  Москва, ул.&nbsp;Примерная, 12<br />вход со&nbsp;двора,
+                  2&nbsp;этаж
+                </dd>
+              </div>
+              <div class="invite-card__row">
+                <dt>Дресс-код</dt>
+                <dd>Просто красиво</dd>
+              </div>
+              <div class="invite-card__row">
+                <dt>Как добраться</dt>
+                <dd>Toyota RAV4 приедет в 18:00</dd>
+              </div>
+            </dl>
+          </article>
+
+          <div class="invite-restaurant">
+            <div class="section-block__content section-block__content--slider">
+              <div class="story-carousel">
+                <figure
+                  class="postcard-photo postcard-photo--story"
+                  id="restaurantFrame"
+                >
+                  <img
+                    id="restaurantImage"
+                    src="./assets/restaurant-1.jpeg"
+                    alt="Фото ресторана"
+                  />
+                </figure>
+                <div
+                  class="story-slider"
+                  id="restaurantSlider"
+                  aria-label="Фото ресторана"
+                >
+                  <button
+                    type="button"
+                    class="story-slider__nav story-slider__nav--prev"
+                    id="restaurantPrevBtn"
+                    aria-label="Предыдущее фото"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    type="button"
+                    class="story-slider__nav story-slider__nav--next"
+                    id="restaurantNextBtn"
+                    aria-label="Следующее фото"
+                  >
+                    ›
+                  </button>
+                </div>
+              </div>
+            </div>
+            <p class="story-slider__caption" id="restaurantCaption">
+              Ristorante «La Dolce Vita»
+            </p>
+          </div>
+
+          <p class="section-block__text section-block__text--bottom-right">
+            Связь.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+        // async function typeText(element) {
+        //   const text = element.textContent.trim();
+        //   const speed = Number(element.dataset.typeSpeed) || 10;
+        //
+        //   element.textContent = '';
+        //   element.classList.add('is-typing');
+        //
+        //   for (const symbol of text) {
+        //     element.textContent += symbol;
+        //     await delay(speed);
+        //   }
+        //
+        //   await delay(250);
+        //   element.classList.remove('is-typing');
+        // }
+
+        // async function runTypewriter() {
+        //   const blocks = Array.from(
+        //     document.querySelectorAll('.js-typewriter'),
+        //   );
+        //
+        //   blocks.slice(1).forEach((block) => {
+        //     block.style.visibility = 'hidden';
+        //   });
+        //
+        //   for (const block of blocks) {
+        //     block.style.visibility = 'visible';
+        //     await typeText(block);
+        //     await delay(140);
+        //   }
+        //
+        //   const scrollDownBtn = document.getElementById('scrollDownBtn');
+        //   if (scrollDownBtn) {
+        //     scrollDownBtn.classList.add('is-visible');
+        //   }
+        // }
+
+        function showStaticTypewriter() {
+          document.querySelectorAll('.js-typewriter').forEach((block) => {
+            block.style.visibility = 'visible';
+          });
+
+          const scrollDownBtn = document.getElementById('scrollDownBtn');
+          if (scrollDownBtn) {
+            scrollDownBtn.classList.add('is-visible');
+          }
+        }
+
+        function setupSectionScrollButtons() {
+          document
+            .querySelectorAll('[data-scroll-target]')
+            .forEach((button) => {
+              const target = document.querySelector(
+                button.dataset.scrollTarget,
+              );
+              if (!target) return;
+
+              button.addEventListener('click', () => {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              });
+            });
+        }
+
+        function setupPostcardSlider({
+          frame,
+          image,
+          caption,
+          prevBtn,
+          nextBtn,
+          slides,
+          imageAlt = 'Фото',
+        }) {
+          if (
+            !frame ||
+            !image ||
+            !caption ||
+            !prevBtn ||
+            !nextBtn ||
+            !slides.length
+          ) {
+            return;
+          }
+
+          let currentIndex = 0;
+
+          const renderSlide = () => {
+            const currentSlide = slides[currentIndex];
+            image.src = currentSlide.src;
+            image.alt = imageAlt;
+            caption.textContent = currentSlide.caption;
+            frame.style.setProperty('--story-tilt', `${currentSlide.tilt}deg`);
+          };
+
+          const goToSlide = (index) => {
+            currentIndex = (index + slides.length) % slides.length;
+            renderSlide();
+          };
+
+          prevBtn.addEventListener('click', () => {
+            goToSlide(currentIndex - 1);
+          });
+
+          nextBtn.addEventListener('click', () => {
+            goToSlide(currentIndex + 1);
+          });
+
+          let touchStartX = 0;
+
+          frame.addEventListener(
+            'touchstart',
+            (event) => {
+              touchStartX = event.changedTouches[0].clientX;
+            },
+            { passive: true },
+          );
+
+          frame.addEventListener(
+            'touchend',
+            (event) => {
+              const touchEndX = event.changedTouches[0].clientX;
+              const deltaX = touchEndX - touchStartX;
+
+              if (Math.abs(deltaX) < 40) return;
+
+              if (deltaX < 0) {
+                goToSlide(currentIndex + 1);
+              } else {
+                goToSlide(currentIndex - 1);
+              }
+            },
+            { passive: true },
+          );
+
+          renderSlide();
+        }
+
+        function setupStorySlider() {
+          setupPostcardSlider({
+            frame: document.getElementById('storyFrame'),
+            image: document.getElementById('storyImage'),
+            caption: document.getElementById('storyCaption'),
+            prevBtn: document.getElementById('storyPrevBtn'),
+            nextBtn: document.getElementById('storyNextBtn'),
+            imageAlt: 'Фото из семейного архива',
+            slides: [
+              {
+                src: './assets/2.jpeg',
+                caption: 'Драматизация на ровном месте',
+                tilt: -4,
+              },
+              {
+                src: './assets/3.jpeg',
+                caption: '“А давай...”',
+                tilt: 3.5,
+              },
+              {
+                src: './assets/4.jpeg',
+                caption:
+                  'История на 2 минуты, рассказанная за 47 минут (их оказалось 10 в 1)',
+                tilt: -2.8,
+              },
+              {
+                src: './assets/5.jpeg',
+                caption: '«Извини, я мини псих»',
+                tilt: 4.2,
+              },
+              {
+                src: './assets/6.jpeg',
+                caption: 'Талант спотыкаться о воздух и обвинять пол',
+                tilt: -3.2,
+              },
+              {
+                src: './assets/7.jpeg',
+                caption: 'Смех: беззвучный → тракторный → чайка → «мне плохо»',
+                tilt: 2.8,
+              },
+              {
+                src: './assets/8.jpeg',
+                caption: '«Будешь кофе??» в любой непонятной ситуации',
+                tilt: -4.6,
+              },
+              {
+                src: './assets/10.jpeg',
+                caption: '«ЭЭЭЭЭЭЭЭ»',
+                tilt: -2.8,
+              },
+            ],
+          });
+        }
+
+        function setupRestaurantSlider() {
+          setupPostcardSlider({
+            frame: document.getElementById('restaurantFrame'),
+            image: document.getElementById('restaurantImage'),
+            caption: document.getElementById('restaurantCaption'),
+            prevBtn: document.getElementById('restaurantPrevBtn'),
+            nextBtn: document.getElementById('restaurantNextBtn'),
+            imageAlt: 'Фото ресторана',
+            slides: [
+              {
+                src: './assets/restaurant-1.jpeg',
+                tilt: -3.5,
+              },
+              {
+                src: './assets/restaurant-2.jpg',
+                tilt: 4,
+              },
+              {
+                src: './assets/restaurant-3.jpeg',
+                tilt: -2.5,
+              },
+            ],
+          });
+        }
+
+        // async function runLoadingScreen() {
+        //   const loadingScreen = document.getElementById('loadingScreen');
+        //   const loadingText = document.getElementById('loadingText');
+        //   const baseText = 'сабр';
+        //
+        //   if (!loadingScreen || !loadingText) return;
+        //
+        //   let keepAnimating = true;
+        //
+        //   const animateLoading = async () => {
+        //     while (keepAnimating) {
+        //       loadingText.textContent = '';
+        //
+        //       for (const symbol of baseText) {
+        //         if (!keepAnimating) return;
+        //         loadingText.textContent += symbol;
+        //         await delay(120);
+        //       }
+        //
+        //       await delay(220);
+        //     }
+        //   };
+        //
+        //   const typingLoop = animateLoading();
+        //   await delay(2000);
+        //   keepAnimating = false;
+        //   await typingLoop;
+        //
+        //   loadingScreen.classList.add('is-hidden');
+        //   await delay(260);
+        //   loadingScreen.remove();
+        // }
+
+        function hideLoadingScreen() {
+          const loadingScreen = document.getElementById('loadingScreen');
+          if (loadingScreen) {
+            loadingScreen.remove();
+          }
+        }
+
+        function startExperience() {
+          hideLoadingScreen();
+          showStaticTypewriter();
+          setupSectionScrollButtons();
+          setupStorySlider();
+          setupRestaurantSlider();
+          // await runLoadingScreen();
+          // await runTypewriter();
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', startExperience, {
+            once: true,
+          });
+        } else {
+          startExperience();
+        }
+      })();
+    </script>
+  </body>
+</html>
