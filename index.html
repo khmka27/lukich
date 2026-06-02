@@ -149,10 +149,10 @@
                 </button>
               </div>
             </div>
+            <p class="story-slider__caption" id="storyCaption">
+              лёгкая драма в лучших традициях жанра
+            </p>
           </div>
-          <p class="story-slider__caption" id="storyCaption">
-            лёгкая драма в лучших традициях жанра
-          </p>
 
           <button
             type="button"
@@ -299,49 +299,38 @@
 
     <script>
       (function () {
-        // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+        const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-        // async function typeText(element) {
-        //   const text = element.textContent.trim();
-        //   const speed = Number(element.dataset.typeSpeed) || 10;
-        //
-        //   element.textContent = '';
-        //   element.classList.add('is-typing');
-        //
-        //   for (const symbol of text) {
-        //     element.textContent += symbol;
-        //     await delay(speed);
-        //   }
-        //
-        //   await delay(250);
-        //   element.classList.remove('is-typing');
-        // }
+        async function typeText(element) {
+          const text = element.textContent.trim();
+          const speed = Number(element.dataset.typeSpeed) || 10;
 
-        // async function runTypewriter() {
-        //   const blocks = Array.from(
-        //     document.querySelectorAll('.js-typewriter'),
-        //   );
-        //
-        //   blocks.slice(1).forEach((block) => {
-        //     block.style.visibility = 'hidden';
-        //   });
-        //
-        //   for (const block of blocks) {
-        //     block.style.visibility = 'visible';
-        //     await typeText(block);
-        //     await delay(140);
-        //   }
-        //
-        //   const scrollDownBtn = document.getElementById('scrollDownBtn');
-        //   if (scrollDownBtn) {
-        //     scrollDownBtn.classList.add('is-visible');
-        //   }
-        // }
+          element.textContent = '';
+          element.classList.add('is-typing');
 
-        function showStaticTypewriter() {
-          document.querySelectorAll('.js-typewriter').forEach((block) => {
-            block.style.visibility = 'visible';
+          for (const symbol of text) {
+            element.textContent += symbol;
+            await delay(speed);
+          }
+
+          await delay(250);
+          element.classList.remove('is-typing');
+        }
+
+        async function runTypewriter() {
+          const blocks = Array.from(
+            document.querySelectorAll('.js-typewriter'),
+          );
+
+          blocks.slice(1).forEach((block) => {
+            block.style.visibility = 'hidden';
           });
+
+          for (const block of blocks) {
+            block.style.visibility = 'visible';
+            await typeText(block);
+            await delay(140);
+          }
 
           const scrollDownBtn = document.getElementById('scrollDownBtn');
           if (scrollDownBtn) {
@@ -387,6 +376,134 @@
             });
         }
 
+        function attachCarouselSwipe(carousel, frame, onPrev, onNext) {
+          let startX = 0;
+          let startY = 0;
+          let startTime = 0;
+          let active = false;
+          let horizontal = false;
+
+          const SWIPE_THRESHOLD = 44;
+          const AXIS_LOCK = 10;
+          const DRAG_FACTOR = 0.45;
+          const MAX_DRAG = 80;
+
+          const resetDrag = (animateBack = true) => {
+            frame.classList.remove('is-swiping');
+            if (animateBack && frame.style.transform) {
+              frame.style.transition = 'transform 0.22s ease-out';
+              frame.style.transform = '';
+              const onEnd = () => {
+                frame.style.transition = '';
+                frame.removeEventListener('transitionend', onEnd);
+              };
+              frame.addEventListener('transitionend', onEnd);
+            } else {
+              frame.style.transition = '';
+              frame.style.transform = '';
+            }
+          };
+
+          const setDragOffset = (dx) => {
+            const offset = Math.max(
+              -MAX_DRAG,
+              Math.min(MAX_DRAG, dx * DRAG_FACTOR),
+            );
+            frame.classList.add('is-swiping');
+            frame.style.transition = 'none';
+            frame.style.transform = `translateX(calc(-50% + ${offset}px)) rotate(var(--story-tilt, -3.8deg))`;
+          };
+
+          carousel.addEventListener(
+            'touchstart',
+            (event) => {
+              if (event.touches.length !== 1) return;
+              active = true;
+              horizontal = false;
+              startX = event.touches[0].clientX;
+              startY = event.touches[0].clientY;
+              startTime = Date.now();
+            },
+            { passive: true },
+          );
+
+          carousel.addEventListener(
+            'touchmove',
+            (event) => {
+              if (!active || event.touches.length !== 1) return;
+
+              const dx = event.touches[0].clientX - startX;
+              const dy = event.touches[0].clientY - startY;
+
+              if (!horizontal) {
+                if (Math.abs(dx) < AXIS_LOCK && Math.abs(dy) < AXIS_LOCK) {
+                  return;
+                }
+
+                if (Math.abs(dx) > Math.abs(dy) + AXIS_LOCK) {
+                  horizontal = true;
+                } else if (Math.abs(dy) > Math.abs(dx) + AXIS_LOCK) {
+                  active = false;
+                  return;
+                }
+              }
+
+              if (horizontal) {
+                event.preventDefault();
+                setDragOffset(dx);
+              }
+            },
+            { passive: false },
+          );
+
+          const finishSwipe = (clientX, clientY) => {
+            if (!active) return;
+            active = false;
+
+            if (!horizontal) {
+              resetDrag(false);
+              return;
+            }
+
+            const dx = clientX - startX;
+            const dy = clientY - startY;
+            const elapsed = Math.max(1, Date.now() - startTime);
+            const velocity = dx / elapsed;
+
+            const passedDistance = Math.abs(dx) >= SWIPE_THRESHOLD;
+            const passedVelocity =
+              Math.abs(velocity) > 0.35 && Math.abs(dx) > 14;
+
+            resetDrag(!(passedDistance || passedVelocity));
+
+            if (!passedDistance && !passedVelocity) return;
+            if (Math.abs(dx) < Math.abs(dy)) return;
+
+            if (dx < 0) onNext();
+            else onPrev();
+          };
+
+          carousel.addEventListener(
+            'touchend',
+            (event) => {
+              const touch = event.changedTouches[0];
+              if (!touch) return;
+              finishSwipe(touch.clientX, touch.clientY);
+            },
+            { passive: true },
+          );
+
+          carousel.addEventListener(
+            'touchcancel',
+            () => {
+              active = false;
+              horizontal = false;
+              resetDrag(true);
+            },
+            { passive: true },
+          );
+        }
+
         function setupPostcardSlider({
           frame,
           image,
@@ -415,6 +532,9 @@
             image.alt = imageAlt;
             caption.textContent = currentSlide.caption;
             frame.style.setProperty('--story-tilt', `${currentSlide.tilt}deg`);
+            frame.classList.remove('is-swiping');
+            frame.style.transition = '';
+            frame.style.transform = '';
           };
 
           const goToSlide = (index) => {
@@ -430,32 +550,15 @@
             goToSlide(currentIndex + 1);
           });
 
-          let touchStartX = 0;
-
-          frame.addEventListener(
-            'touchstart',
-            (event) => {
-              touchStartX = event.changedTouches[0].clientX;
-            },
-            { passive: true },
-          );
-
-          frame.addEventListener(
-            'touchend',
-            (event) => {
-              const touchEndX = event.changedTouches[0].clientX;
-              const deltaX = touchEndX - touchStartX;
-
-              if (Math.abs(deltaX) < 40) return;
-
-              if (deltaX < 0) {
-                goToSlide(currentIndex + 1);
-              } else {
-                goToSlide(currentIndex - 1);
-              }
-            },
-            { passive: true },
-          );
+          const carousel = frame.closest('.story-carousel');
+          if (carousel) {
+            attachCarouselSwipe(
+              carousel,
+              frame,
+              () => goToSlide(currentIndex - 1),
+              () => goToSlide(currentIndex + 1),
+            );
+          }
 
           renderSlide();
         }
@@ -539,54 +642,45 @@
           });
         }
 
-        // async function runLoadingScreen() {
-        //   const loadingScreen = document.getElementById('loadingScreen');
-        //   const loadingText = document.getElementById('loadingText');
-        //   const baseText = 'сабр';
-        //
-        //   if (!loadingScreen || !loadingText) return;
-        //
-        //   let keepAnimating = true;
-        //
-        //   const animateLoading = async () => {
-        //     while (keepAnimating) {
-        //       loadingText.textContent = '';
-        //
-        //       for (const symbol of baseText) {
-        //         if (!keepAnimating) return;
-        //         loadingText.textContent += symbol;
-        //         await delay(120);
-        //       }
-        //
-        //       await delay(220);
-        //     }
-        //   };
-        //
-        //   const typingLoop = animateLoading();
-        //   await delay(2000);
-        //   keepAnimating = false;
-        //   await typingLoop;
-        //
-        //   loadingScreen.classList.add('is-hidden');
-        //   await delay(260);
-        //   loadingScreen.remove();
-        // }
-
-        function hideLoadingScreen() {
+        async function runLoadingScreen() {
           const loadingScreen = document.getElementById('loadingScreen');
-          if (loadingScreen) {
-            loadingScreen.remove();
-          }
+          const loadingText = document.getElementById('loadingText');
+          const baseText = 'сабр';
+
+          if (!loadingScreen || !loadingText) return;
+
+          let keepAnimating = true;
+
+          const animateLoading = async () => {
+            while (keepAnimating) {
+              loadingText.textContent = '';
+
+              for (const symbol of baseText) {
+                if (!keepAnimating) return;
+                loadingText.textContent += symbol;
+                await delay(120);
+              }
+
+              await delay(220);
+            }
+          };
+
+          const typingLoop = animateLoading();
+          await delay(2000);
+          keepAnimating = false;
+          await typingLoop;
+
+          loadingScreen.classList.add('is-hidden');
+          await delay(260);
+          loadingScreen.remove();
         }
 
-        function startExperience() {
-          hideLoadingScreen();
-          showStaticTypewriter();
+        async function startExperience() {
           setupSectionScrollButtons();
           setupStorySlider();
           setupRestaurantSlider();
-          // await runLoadingScreen();
-          // await runTypewriter();
+          await runLoadingScreen();
+          await runTypewriter();
         }
 
         if (document.readyState === 'loading') {

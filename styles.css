@@ -9,6 +9,7 @@
   --scroll-btn-bottom: clamp(0.2rem, 0.8vh, 0.5rem);
   --scroll-btn-size: 2.6rem;
   --scene-text-gap: clamp(0.75rem, 2.4vh, 1.35rem);
+  --story-caption-gap: 1.5rem;
 }
 
 * {
@@ -102,6 +103,8 @@ html {
   filter: blur(65px);
   pointer-events: none;
   opacity: 0.55;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .background-glow--a {
@@ -133,9 +136,7 @@ html {
 }
 
 .section-block {
-  min-height: 100vh;
   min-height: 100svh;
-  min-height: 100dvh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -156,7 +157,9 @@ html {
   row-gap: var(--scene-text-gap);
   align-items: center;
   justify-items: stretch;
-  padding-bottom: calc(var(--scroll-btn-bottom) + var(--scroll-btn-size) + 0.45rem);
+  padding-bottom: calc(
+    var(--scroll-btn-bottom) + var(--scroll-btn-size) + 0.45rem
+  );
 }
 
 .section-block__scene > .section-block__content {
@@ -247,10 +250,24 @@ html {
   margin-inline: auto;
 }
 
+#sectionThree .section-block__content--slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--story-caption-gap);
+}
+
 #sectionThree .story-carousel {
   position: relative;
   width: 100%;
   height: min(380px, 54vw);
+  touch-action: pan-y;
+}
+
+.story-carousel {
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 #sectionThree #storyFrame {
@@ -286,15 +303,12 @@ html {
 }
 
 #sectionThree .story-slider__caption {
-  position: absolute;
-  left: 50%;
-  right: auto;
-  bottom: calc(var(--scroll-btn-bottom) + var(--scroll-btn-size) + 0.85rem);
-  transform: translateX(-50%);
+  position: static;
   width: min(88vw, 520px);
   margin: 0;
   min-height: 2.6em;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .section-block__content-text {
@@ -572,7 +586,11 @@ html {
 
 .postcard-photo--story {
   transform: rotate(var(--story-tilt, -3.8deg));
-  touch-action: pan-y;
+  transition: transform 0.22s ease-out;
+}
+
+.postcard-photo--story.is-swiping {
+  transition: none;
 }
 
 .postcard-photo::before {
@@ -589,6 +607,8 @@ html {
   width: 100%;
   border-radius: 14px;
   object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .story-slider {
@@ -660,6 +680,7 @@ html {
 .scroll-down-btn--always-visible {
   opacity: 1;
   pointer-events: auto;
+  will-change: transform;
   animation: bounceDown 1.2s ease-in-out infinite;
 }
 
@@ -669,19 +690,19 @@ body.model-off #sectionOne .section-block__content--model {
 
 @keyframes driftA {
   from {
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate(-22px, 18px);
+    transform: translate3d(-22px, 18px, 0);
   }
 }
 
 @keyframes driftB {
   from {
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate(18px, -24px);
+    transform: translate3d(18px, -24px, 0);
   }
 }
 
@@ -699,16 +720,21 @@ body.model-off #sectionOne .section-block__content--model {
 @keyframes bounceDown {
   0%,
   100% {
-    transform: translateX(-50%) translateY(0);
+    transform: translate3d(-50%, 0, 0);
   }
   50% {
-    transform: translateX(-50%) translateY(8px);
+    transform: translate3d(-50%, 8px, 0);
   }
 }
 
 @media (max-width: 920px) {
   .section-block {
+    min-height: 100svh;
     padding: 0.75rem var(--page-side-padding) 1.5rem;
+  }
+
+  .background-glow {
+    contain: layout style paint;
   }
 
   .section-block__scene {
@@ -769,6 +795,7 @@ body.model-off #sectionOne .section-block__content--model {
 
   #sectionThree .section-block__content--slider {
     width: min(300px, 78vw);
+    gap: var(--story-caption-gap);
   }
 
   #sectionThree .story-carousel {
@@ -818,10 +845,7 @@ body.model-off #sectionOne .section-block__content--model {
   }
 
   #sectionThree .story-slider__caption {
-    bottom: calc(
-      max(0.1rem, env(safe-area-inset-bottom, 0px)) + var(--scroll-btn-size) + 0.75rem
-    );
-    font-size: clamp(1.35rem, 5.6vw, 1.95rem);
+    font-size: clamp(1.5rem, 5.6vw, 1.95rem);
   }
 
   .section-block--invite {
@@ -862,5 +886,4 @@ body.model-off #sectionOne .section-block__content--model {
     width: min(220px, 64vw);
     height: min(220px, 42vw);
   }
-
 }
