@@ -202,7 +202,7 @@
           <button
             type="button"
             class="scroll-down-btn scroll-down-btn--always-visible"
-            data-scroll-target="#sectionFive"
+            data-scroll-target="#sectionQuiz"
             aria-label="Прокрутить вниз"
           >
             ↓
@@ -212,87 +212,120 @@
 
       <hr class="section-divider" aria-hidden="true" />
 
-      <section class="section-block section-block--invite" id="sectionFive">
-        <div class="section-block__scene section-block__scene--invite">
+      <section class="section-block" id="sectionQuiz">
+        <div class="section-block__scene">
           <p class="section-block__text section-block__text--top-left">
-            Полина Андреевна!
+            Прошу пройти небольшой опрос, который поможет определить ваше
+            настроение.
           </p>
 
-          <article class="invite-card" aria-label="Приглашение">
-            <p class="invite-card__eyebrow">Ждем вас</p>
-
-            <dl class="invite-card__details">
-              <div class="invite-card__row">
-                <dt>Когда</dt>
-                <dd>5&nbsp;июня · 20:00</dd>
-              </div>
-              <div class="invite-card__row">
-                <dt>Где</dt>
-                <dd>Ristorante «La&nbsp;Dolce&nbsp;Vita»</dd>
-              </div>
-              <div class="invite-card__row">
-                <dt>Адрес</dt>
-                <dd>
-                  Москва, ул.&nbsp;Примерная, 12<br />вход со&nbsp;двора,
-                  2&nbsp;этаж
-                </dd>
-              </div>
-              <div class="invite-card__row">
-                <dt>Дресс-код</dt>
-                <dd>Просто красиво</dd>
-              </div>
-              <div class="invite-card__row">
-                <dt>Как добраться</dt>
-                <dd>Toyota RAV4 приедет в 18:00</dd>
-              </div>
-            </dl>
-          </article>
-
-          <div class="invite-restaurant">
-            <div class="section-block__content section-block__content--slider">
-              <div class="story-carousel">
-                <figure
-                  class="postcard-photo postcard-photo--story"
-                  id="restaurantFrame"
+          <div class="section-block__content section-block__content--quiz">
+            <div class="quiz-stage" id="quizStage">
+              <div class="quiz-panel" id="quizPanel" aria-label="Опрос">
+                <p
+                  class="quiz-panel__step section-block__content-text"
+                  id="quizStep"
+                  aria-live="polite"
                 >
-                  <img
-                    id="restaurantImage"
-                    src="./assets/restaurant-1.jpeg"
-                    alt="Фото ресторана"
-                  />
-                </figure>
-                <div
-                  class="story-slider"
-                  id="restaurantSlider"
-                  aria-label="Фото ресторана"
-                >
-                  <button
-                    type="button"
-                    class="story-slider__nav story-slider__nav--prev"
-                    id="restaurantPrevBtn"
-                    aria-label="Предыдущее фото"
-                  >
-                    ‹
-                  </button>
-                  <button
-                    type="button"
-                    class="story-slider__nav story-slider__nav--next"
-                    id="restaurantNextBtn"
-                    aria-label="Следующее фото"
-                  >
-                    ›
-                  </button>
+                  1 / 4
+                </p>
+
+                <div class="quiz-panel__viewport">
+                  <div class="quiz-panel__track" id="quizTrack"></div>
                 </div>
               </div>
+
+              <p
+                class="quiz-thanks section-block__content-text"
+                id="quizThanks"
+                aria-hidden="true"
+              >
+                Спасибо!
+              </p>
             </div>
-            <p class="story-slider__caption" id="restaurantCaption">
-              Ristorante «La Dolce Vita»
+          </div>
+
+          <button
+            type="button"
+            class="quiz-proceed-btn"
+            id="quizProceedBtn"
+            disabled
+            aria-label="Следующий вопрос"
+          >
+            Далее
+          </button>
+
+          <button
+            type="button"
+            class="scroll-down-btn"
+            id="quizScrollBtn"
+            data-scroll-target="#sectionFive"
+            hidden
+            aria-label="Прокрутить к приглашению"
+          >
+            ↓
+          </button>
+        </div>
+      </section>
+
+      <hr class="section-divider" aria-hidden="true" />
+
+      <section class="section-block section-block--invite" id="sectionFive">
+        <div
+          class="section-block__scene section-block__scene--invite"
+          id="inviteScene"
+        >
+          <div class="invite-scene__body" id="inviteSceneBody">
+            <p class="section-block__text section-block__text--top-left">
+              Полина Андреевна!
+            </p>
+
+            <article class="invite-card" aria-label="Приглашение">
+              <p class="invite-card__eyebrow">Приглашаем вас на ужин</p>
+
+              <dl class="invite-card__details">
+                <div class="invite-card__row">
+                  <dt>Когда</dt>
+                  <dd>5&nbsp;июня · 20:00</dd>
+                </div>
+                <div class="invite-card__row">
+                  <dt>Где</dt>
+                  <dd id="inviteWhere"></dd>
+                </div>
+                <div class="invite-card__row">
+                  <dt>Адрес</dt>
+                  <dd id="inviteAddress"></dd>
+                </div>
+                <div class="invite-card__row">
+                  <dt>Дресс-код</dt>
+                  <dd>Просто красиво</dd>
+                </div>
+                <div class="invite-card__row">
+                  <dt>Как добраться</dt>
+                  <dd>Toyota</dd>
+                </div>
+              </dl>
+            </article>
+
+            <div class="invite-restaurant" id="inviteRestaurant" hidden>
+              <figure
+                class="postcard-photo postcard-photo--story invite-restaurant__photo"
+                id="restaurantFrame"
+              >
+                <img id="restaurantImage" alt="" />
+              </figure>
+            </div>
+
+            <p class="section-block__text section-block__text--bottom-right">
+              Связь.
             </p>
           </div>
 
-          <p class="section-block__text section-block__text--bottom-right">
-            Связь.
-          </p>
+          <div class="invite-lock" id="inviteLock">
+            <p class="invite-lock__text section-block__text">
+              Опрос пропустить не&nbsp;получится :(
+            </p>
+          </div>
         </div>
       </section>
     </main>
@@ -349,7 +382,8 @@
 
               button.addEventListener('click', () => {
                 const divider = target.previousElementSibling;
-                const isMobile = window.matchMedia('(max-width: 920px)').matches;
+                const isMobile =
+                  window.matchMedia('(max-width: 920px)').matches;
                 const gap = isMobile ? 10 : 6;
 
                 let scrollTop;
@@ -510,27 +544,29 @@
           caption,
           prevBtn,
           nextBtn,
-          slides,
+          slides: initialSlides = [],
           imageAlt = 'Фото',
         }) {
-          if (
-            !frame ||
-            !image ||
-            !caption ||
-            !prevBtn ||
-            !nextBtn ||
-            !slides.length
-          ) {
-            return;
+          if (!frame || !image || !caption || !prevBtn || !nextBtn) {
+            return null;
           }
 
+          let slides = [...initialSlides];
           let currentIndex = 0;
+          let alt = imageAlt;
+          let captionText = imageAlt;
 
           const renderSlide = () => {
+            if (!slides.length) {
+              image.removeAttribute('src');
+              caption.textContent = '';
+              return;
+            }
+
             const currentSlide = slides[currentIndex];
             image.src = currentSlide.src;
-            image.alt = imageAlt;
-            caption.textContent = currentSlide.caption;
+            image.alt = alt;
+            caption.textContent = currentSlide.caption ?? captionText;
             frame.style.setProperty('--story-tilt', `${currentSlide.tilt}deg`);
             frame.classList.remove('is-swiping');
             frame.style.transition = '';
@@ -538,6 +574,7 @@
           };
 
           const goToSlide = (index) => {
+            if (!slides.length) return;
             currentIndex = (index + slides.length) % slides.length;
             renderSlide();
           };
@@ -560,7 +597,24 @@
             );
           }
 
-          renderSlide();
+          if (slides.length) {
+            renderSlide();
+          }
+
+          return {
+            setSlides(nextSlides, { name, imageAlt: nextAlt } = {}) {
+              slides = [...nextSlides];
+              if (name) {
+                captionText = name;
+                alt = nextAlt || `Фото ресторана ${name}`;
+              } else if (nextAlt) {
+                alt = nextAlt;
+                captionText = nextAlt;
+              }
+              currentIndex = 0;
+              renderSlide();
+            },
+          };
         }
 
         function setupStorySlider() {
@@ -617,31 +671,6 @@
           });
         }
 
-        function setupRestaurantSlider() {
-          setupPostcardSlider({
-            frame: document.getElementById('restaurantFrame'),
-            image: document.getElementById('restaurantImage'),
-            caption: document.getElementById('restaurantCaption'),
-            prevBtn: document.getElementById('restaurantPrevBtn'),
-            nextBtn: document.getElementById('restaurantNextBtn'),
-            imageAlt: 'Фото ресторана',
-            slides: [
-              {
-                src: './assets/restaurant-1.jpeg',
-                tilt: -3.5,
-              },
-              {
-                src: './assets/restaurant-2.jpg',
-                tilt: 4,
-              },
-              {
-                src: './assets/restaurant-3.jpeg',
-                tilt: -2.5,
-              },
-            ],
-          });
-        }
-
         async function runLoadingScreen() {
           const loadingScreen = document.getElementById('loadingScreen');
           const loadingText = document.getElementById('loadingText');
@@ -675,10 +704,414 @@
           loadingScreen.remove();
         }
 
+        const QUIZ_QUESTIONS = [
+          {
+            title: 'Хочется сегодня оказаться там, где…',
+            options: [
+              {
+                key: 'A',
+                text: 'Можно выдохнуть и почувствовать себя легче.',
+              },
+              {
+                key: 'B',
+                text: 'Все будет собранно, красиво и без сюрпризов.',
+              },
+              {
+                key: 'C',
+                text: 'Есть ощущение новизны, будто вечер может пойти не совсем по плану — и это хорошо.',
+              },
+            ],
+          },
+          {
+            title: 'Хочется, чтобы вечер был скорее…',
+            options: [
+              {
+                key: 'A',
+                text: 'Теплым, живым и немного беззаботным.',
+              },
+              {
+                key: 'B',
+                text: 'Спокойным, уверенным и взрослым.',
+              },
+              {
+                key: 'C',
+                text: 'Любопытным, эстетичным и с характером.',
+              },
+            ],
+          },
+          {
+            title: 'Сейчас больше тянет к месту, где…',
+            options: [
+              {
+                key: 'A',
+                text: 'Не нужно слишком стараться: просто сесть, расслабиться и есть вкусное.',
+              },
+              {
+                key: 'B',
+                text: 'Все понятно с первых минут: хороший сервис, сильная репутация, ровный сценарий.',
+              },
+              {
+                key: 'C',
+                text: 'Есть шанс открыть для себя что-то новое и потом обсуждать впечатления.',
+              },
+            ],
+          },
+          {
+            title: 'По настроению хочется…',
+            options: [
+              {
+                key: 'A',
+                text: 'Легкости и ощущения маленькой смены декораций.',
+              },
+              {
+                key: 'B',
+                text: 'Красивой классики, которая почти наверняка не подведет.',
+              },
+              {
+                key: 'C',
+                text: 'Чего-то свежего, но не странного; необычного, но не слишком экспериментального.',
+              },
+            ],
+          },
+        ];
+
+        const RESTAURANTS_BY_KEY = {
+          A: {
+            name: 'Meraki',
+            address: 'Москва, ул. Новорязанская, 23 стр. 2',
+            photo: './assets/Meraki.jpg',
+            tilt: -3.5,
+          },
+          B: {
+            name: 'Assunta Madre',
+            address: 'Москва, Поварская 52/55, к. 2',
+            photo: './assets/AssuntaMadre.jpg',
+            tilt: 3.2,
+          },
+          C: {
+            name: 'Magritte',
+            address: 'Москва, ул. Варварка, 14',
+            photo: './assets/Magritte.jpg',
+            tilt: -3.8,
+          },
+        };
+
+        function resolveQuizRestaurantKey(answers) {
+          const counts = { A: 0, B: 0, C: 0 };
+          answers.forEach((key) => {
+            counts[key]++;
+          });
+
+          const max = Math.max(counts.A, counts.B, counts.C);
+          const leaders = ['A', 'B', 'C'].filter((key) => counts[key] === max);
+
+          if (leaders.length === 1) {
+            return leaders[0];
+          }
+
+          const last = answers[answers.length - 1];
+          if (leaders.includes(last)) {
+            return last;
+          }
+
+          for (let i = answers.length - 1; i >= 0; i--) {
+            if (leaders.includes(answers[i])) {
+              return answers[i];
+            }
+          }
+
+          return 'A';
+        }
+
+        const QUIZ_STORAGE_KEY = 'lukich-quiz-v1';
+
+        function readQuizStorage() {
+          try {
+            const raw = localStorage.getItem(QUIZ_STORAGE_KEY);
+            if (!raw) return null;
+            const data = JSON.parse(raw);
+            return data && typeof data === 'object' ? data : null;
+          } catch {
+            return null;
+          }
+        }
+
+        function writeQuizStorage(data) {
+          localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function unlockInviteSection() {
+          document.getElementById('inviteScene')?.classList.add('is-unlocked');
+        }
+
+        function applyQuizResult(restaurantKey) {
+          const restaurant = RESTAURANTS_BY_KEY[restaurantKey];
+          if (!restaurant) return;
+
+          const inviteWhere = document.getElementById('inviteWhere');
+          const inviteAddress = document.getElementById('inviteAddress');
+          const inviteRestaurant = document.getElementById('inviteRestaurant');
+
+          if (inviteWhere) {
+            inviteWhere.textContent = restaurant.name;
+          }
+          if (inviteAddress) {
+            inviteAddress.textContent = restaurant.address;
+          }
+
+          const restaurantFrame = document.getElementById('restaurantFrame');
+          const restaurantImage = document.getElementById('restaurantImage');
+          const restaurantCaption =
+            document.getElementById('restaurantCaption');
+
+          if (restaurantImage && restaurant.photo) {
+            restaurantImage.src = restaurant.photo;
+            restaurantImage.alt = `Фото ресторана ${restaurant.name}`;
+          }
+          if (restaurantFrame) {
+            restaurantFrame.style.setProperty(
+              '--story-tilt',
+              `${restaurant.tilt}deg`,
+            );
+          }
+          if (restaurantCaption) {
+            restaurantCaption.textContent = restaurant.name;
+          }
+
+          if (inviteRestaurant) {
+            inviteRestaurant.hidden = false;
+          }
+
+          unlockInviteSection();
+        }
+
+        function scrollToSection(target) {
+          const divider = target.previousElementSibling;
+          const isMobile = window.matchMedia('(max-width: 920px)').matches;
+          const gap = isMobile ? 10 : 6;
+
+          let scrollTop;
+          if (divider?.classList.contains('section-divider')) {
+            scrollTop =
+              divider.getBoundingClientRect().bottom + window.scrollY + gap;
+          } else {
+            scrollTop =
+              target.getBoundingClientRect().top + window.scrollY + gap;
+          }
+
+          window.scrollTo({
+            top: Math.max(0, scrollTop),
+            behavior: 'smooth',
+          });
+        }
+
+        function setupQuiz() {
+          const track = document.getElementById('quizTrack');
+          const stepEl = document.getElementById('quizStep');
+          const quizStage = document.getElementById('quizStage');
+          const quizPanel = document.getElementById('quizPanel');
+          const quizThanks = document.getElementById('quizThanks');
+          const proceedBtn = document.getElementById('quizProceedBtn');
+          const scrollBtn = document.getElementById('quizScrollBtn');
+          const QUIZ_FINISH_MS = 480;
+
+          if (
+            !track ||
+            !stepEl ||
+            !quizStage ||
+            !quizPanel ||
+            !quizThanks ||
+            !proceedBtn ||
+            !scrollBtn
+          ) {
+            return;
+          }
+
+          const answers = new Array(QUIZ_QUESTIONS.length).fill(null);
+          let currentIndex = 0;
+          let isAnimating = false;
+          let isFinishing = false;
+
+          QUIZ_QUESTIONS.forEach((question, questionIndex) => {
+            const slide = document.createElement('div');
+            slide.className = 'quiz-slide';
+            slide.setAttribute('role', 'group');
+            slide.setAttribute(
+              'aria-label',
+              `Вопрос ${questionIndex + 1} из ${QUIZ_QUESTIONS.length}`,
+            );
+
+            const title = document.createElement('h2');
+            title.className = 'quiz-slide__title';
+            title.textContent = question.title;
+
+            const options = document.createElement('div');
+            options.className = 'quiz-slide__options';
+
+            question.options.forEach((option) => {
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'quiz-option';
+              button.dataset.key = option.key;
+              button.dataset.questionIndex = String(questionIndex);
+              button.innerHTML = `<span class="quiz-option__key">${option.key}</span><span class="quiz-option__text">${option.text}</span>`;
+
+              button.addEventListener('click', () => {
+                if (isAnimating || isFinishing) return;
+
+                answers[questionIndex] = option.key;
+                options
+                  .querySelectorAll('.quiz-option')
+                  .forEach((el) => el.classList.remove('is-selected'));
+                button.classList.add('is-selected');
+                proceedBtn.disabled = false;
+
+                writeQuizStorage({
+                  completed: false,
+                  currentIndex: questionIndex,
+                  answers: [...answers],
+                });
+              });
+
+              options.appendChild(button);
+            });
+
+            slide.append(title, options);
+            track.appendChild(slide);
+          });
+
+          const updateStep = () => {
+            stepEl.textContent = `${currentIndex + 1} / ${QUIZ_QUESTIONS.length}`;
+            const isLast = currentIndex === QUIZ_QUESTIONS.length - 1;
+            proceedBtn.textContent = 'Далее';
+            proceedBtn.setAttribute(
+              'aria-label',
+              isLast ? 'Завершить опрос' : 'Следующий вопрос',
+            );
+          };
+
+          const showQuizCompletedState = () => {
+            quizStage.classList.add('is-complete');
+            quizPanel.setAttribute('aria-hidden', 'true');
+            quizThanks.setAttribute('aria-hidden', 'false');
+            proceedBtn.hidden = true;
+            proceedBtn.classList.remove('is-leaving');
+            scrollBtn.hidden = false;
+            scrollBtn.classList.add('scroll-down-btn--always-visible');
+          };
+
+          const finishQuiz = () => {
+            if (isFinishing) return;
+            isFinishing = true;
+
+            const restaurantKey = resolveQuizRestaurantKey(answers);
+            writeQuizStorage({
+              completed: true,
+              restaurantKey,
+              answers: [...answers],
+              currentIndex: QUIZ_QUESTIONS.length - 1,
+            });
+            applyQuizResult(restaurantKey);
+
+            proceedBtn.classList.add('is-leaving');
+            proceedBtn.disabled = true;
+            quizStage.classList.add('is-complete');
+            quizPanel.setAttribute('aria-hidden', 'true');
+            quizThanks.setAttribute('aria-hidden', 'false');
+
+            window.setTimeout(() => {
+              showQuizCompletedState();
+            }, QUIZ_FINISH_MS);
+          };
+
+          const syncTrackPosition = () => {
+            track.style.transform = `translate3d(-${currentIndex * 100}%, 0, 0)`;
+          };
+
+          const restoreSelectionForSlide = (index) => {
+            const slide = track.children[index];
+            if (!slide) return;
+
+            const selectedKey = answers[index];
+            slide.querySelectorAll('.quiz-option').forEach((option) => {
+              option.classList.toggle(
+                'is-selected',
+                option.dataset.key === selectedKey,
+              );
+            });
+            proceedBtn.disabled = !selectedKey;
+          };
+
+          proceedBtn.addEventListener('click', () => {
+            if (isAnimating || !answers[currentIndex]) return;
+
+            const isLast = currentIndex === QUIZ_QUESTIONS.length - 1;
+
+            if (isLast) {
+              finishQuiz();
+              return;
+            }
+
+            isAnimating = true;
+            track.classList.add('quiz-panel__track--sliding');
+
+            currentIndex += 1;
+            syncTrackPosition();
+            updateStep();
+            restoreSelectionForSlide(currentIndex);
+
+            writeQuizStorage({
+              completed: false,
+              currentIndex,
+              answers: [...answers],
+            });
+
+            window.setTimeout(() => {
+              track.classList.remove('quiz-panel__track--sliding');
+              isAnimating = false;
+            }, 460);
+          });
+
+          const restoreFromStorage = () => {
+            const saved = readQuizStorage();
+            if (!saved) return;
+
+            if (Array.isArray(saved.answers)) {
+              saved.answers.forEach((value, index) => {
+                if (value && index < answers.length) {
+                  answers[index] = value;
+                }
+              });
+            }
+
+            if (typeof saved.currentIndex === 'number') {
+              currentIndex = Math.min(
+                Math.max(0, saved.currentIndex),
+                QUIZ_QUESTIONS.length - 1,
+              );
+            }
+
+            syncTrackPosition();
+            updateStep();
+            restoreSelectionForSlide(currentIndex);
+
+            if (saved.completed && RESTAURANTS_BY_KEY[saved.restaurantKey]) {
+              isFinishing = true;
+              applyQuizResult(saved.restaurantKey);
+              showQuizCompletedState();
+            }
+          };
+
+          syncTrackPosition();
+          updateStep();
+          restoreSelectionForSlide(0);
+          restoreFromStorage();
+        }
+
         async function startExperience() {
           setupSectionScrollButtons();
           setupStorySlider();
-          setupRestaurantSlider();
+          setupQuiz();
           await runLoadingScreen();
           await runTypewriter();
         }
