@@ -1013,17 +1013,38 @@ body.model-off #sectionOne .section-block__content--model {
 }
 
 @media (max-width: 920px) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    position: relative;
+  }
+
   .section-block {
-    min-height: 100svh;
-    padding: 0.75rem var(--page-side-padding) 1.5rem;
+    /* 100vh стабильнее 100svh: панель Safari не дёргает высоту секций */
+    min-height: 100vh;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0.85rem var(--page-side-padding) 1.5rem;
   }
 
   .background-glow {
-    contain: layout style paint;
+    position: absolute;
+    filter: blur(42px);
+    animation: none;
+    will-change: auto;
   }
 
   .section-block__scene {
-    min-height: min(88svh, 760px);
+    min-height: auto;
+    width: 100%;
+  }
+
+  .scroll-down-btn.is-visible,
+  .scroll-down-btn--always-visible {
+    animation: none;
+    will-change: auto;
   }
 
   .section-block__text {

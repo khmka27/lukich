@@ -404,7 +404,7 @@
 
                 window.scrollTo({
                   top: Math.max(0, scrollTop),
-                  behavior: 'smooth',
+                  behavior: isMobile ? 'auto' : 'smooth',
                 });
               });
             });
@@ -901,7 +901,7 @@
 
           window.scrollTo({
             top: Math.max(0, scrollTop),
-            behavior: 'smooth',
+            behavior: isMobile ? 'auto' : 'smooth',
           });
         }
 
@@ -1109,11 +1109,16 @@
         }
 
         async function startExperience() {
-          setupSectionScrollButtons();
-          setupStorySlider();
-          setupQuiz();
-          await runLoadingScreen();
-          await runTypewriter();
+          try {
+            setupSectionScrollButtons();
+            setupStorySlider();
+            setupQuiz();
+            await runLoadingScreen();
+            await runTypewriter();
+          } catch (error) {
+            console.error(error);
+            document.getElementById('loadingScreen')?.remove();
+          }
         }
 
         if (document.readyState === 'loading') {
